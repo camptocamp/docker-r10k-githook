@@ -14,4 +14,6 @@ RUN mkdir /srv/puppetmaster.git \
 COPY post-receive /srv/puppetmaster.git/hooks/post-receive
 RUN chmod +x /srv/puppetmaster.git/hooks/post-receive
 
+RUN usermod -s /usr/bin/git-shell puppet
+
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
