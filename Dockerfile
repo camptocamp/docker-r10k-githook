@@ -1,4 +1,4 @@
-FROM camptocamp/r10k:2.0.3-2
+FROM camptocamp/r10k:2.0.3-3
 
 MAINTAINER mickael.canevet@camptocamp.com
 
