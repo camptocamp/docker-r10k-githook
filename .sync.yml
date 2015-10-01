@@ -1,0 +1,4 @@
+---
+:global:
+  docker_image_name: 'r10k-githook'
+  travis_key_id: '4636b6ad7cb6'
