@@ -1,6 +1,6 @@
 #!/bin/bash -e
 # Setup login
-openssl aes-256-cbc -K $encrypted_264ff60bca14_key -iv $encrypted_264ff60bca14_iv -in .dockercfg.enc -out ~/.dockercfg -d
+openssl aes-256-cbc -K $encrypted__key -iv $encrypted__iv -in .dockercfg.enc -out ~/.dockercfg -d
 if [ "$TRAVIS_BRANCH" == "master" ]; then
   echo "Deploying image to docker hub for master (latest)"
   docker push "camptocamp/:latest"
