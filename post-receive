@@ -2,6 +2,8 @@
 
 umask 0022
 
+PATH=/opt/puppetlabs/puppet/bin:$PATH
+
 while read oldrev newrev refname; do
   # R10K
   if [[ $refname =~ 'refs/heads/' ]]; then
