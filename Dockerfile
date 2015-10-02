@@ -1,4 +1,4 @@
-FROM camptocamp/r10k:2.0.3-3
+FROM camptocamp/r10k:2.0.3-5
 
 MAINTAINER mickael.canevet@camptocamp.com
 
@@ -9,11 +9,11 @@ RUN apt-get update \
 RUN mkdir /var/run/sshd
 
 RUN mkdir /srv/puppetmaster.git \
-  && chown -R puppet:puppet /srv/puppetmaster.git \
-  && su - puppet -s /bin/bash -c "cd /srv/puppetmaster.git && git --bare init"
+  && chown -R r10k:r10k /srv/puppetmaster.git \
+  && su - r10k -s /bin/bash -c "cd /srv/puppetmaster.git && git --bare init"
 COPY post-receive /srv/puppetmaster.git/hooks/post-receive
 RUN chmod +x /srv/puppetmaster.git/hooks/post-receive
 
-RUN usermod -s /usr/bin/git-shell puppet
+RUN usermod -s /usr/bin/git-shell r10k
 
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
