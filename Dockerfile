@@ -16,4 +16,6 @@ RUN chmod +x /srv/puppetmaster.git/hooks/post-receive
 
 RUN usermod -s /usr/bin/git-shell r10k
 
+VOLUME ["/srv/puppetmaster.git"]
+
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
