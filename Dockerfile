@@ -3,7 +3,7 @@ FROM camptocamp/r10k:2.0.3-5
 MAINTAINER mickael.canevet@camptocamp.com
 
 RUN apt-get update \
-  && apt-get install -y openssh-server \
+  && apt-get install -y openssh-server netcat \
   && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /var/run/sshd
