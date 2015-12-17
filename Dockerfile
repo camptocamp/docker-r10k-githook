@@ -24,6 +24,6 @@ ADD post-receive /srv/puppetmaster.git/hooks/post-receive
 
 RUN usermod -s /usr/bin/git-shell r10k
 
-VOLUME ["/srv/puppetmaster.git"]
+VOLUME ["/srv/puppetmaster.git", "/opt/puppetlabs/r10k/cache/"]
 
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
