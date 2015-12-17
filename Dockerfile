@@ -1,6 +1,15 @@
-FROM camptocamp/r10k:2.0.3-5
+FROM camptocamp/puppetserver:2.1.1-9
 
 MAINTAINER mickael.canevet@camptocamp.com
+
+ENV R10K_VERSION='2.0.3'
+
+RUN mkdir -p /opt/puppetlabs/r10k/cache \
+  && useradd -r -d /opt/puppetlabs/r10k -s /bin/false r10k \
+  && chown r10k:r10k -R /opt/puppetlabs/r10k \
+  && chown r10k:r10k -R /etc/puppetlabs/code/environments
+
+RUN gem install r10k --version $R10K_VERSION --no-ri --no-rdoc
 
 RUN apt-get update \
   && apt-get install -y openssh-server netcat \
