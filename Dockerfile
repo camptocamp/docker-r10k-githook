@@ -16,7 +16,8 @@ RUN apt-get update \
 RUN mkdir /var/run/sshd
 
 RUN mkdir /srv/puppetmaster.git
-COPY post-receive /srv/puppetmaster.git/hooks/post-receive
+
+COPY post-receive /
 
 VOLUME ["/srv/puppetmaster.git", "/opt/puppetlabs/r10k/cache/"]
 
