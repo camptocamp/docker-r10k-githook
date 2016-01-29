@@ -17,7 +17,7 @@ RUN mkdir /var/run/sshd
 
 RUN mkdir /srv/puppetmaster.git \
   && su - r10k -s /bin/bash -c "cd /srv/puppetmaster.git && git --bare init"
-ADD post-receive /srv/puppetmaster.git/hooks/post-receive
+COPY post-receive /srv/puppetmaster.git/hooks/post-receive
 
 VOLUME ["/srv/puppetmaster.git", "/opt/puppetlabs/r10k/cache/"]
 
