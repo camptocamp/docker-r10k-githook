@@ -12,7 +12,7 @@ RUN mkdir -p /opt/puppetlabs/r10k/cache \
 RUN gem install r10k --version $R10K_VERSION --no-ri --no-rdoc
 
 RUN apt-get update \
-  && apt-get install -y openssh-server netcat \
+  && apt-get install -y openssh-server \
   && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /var/run/sshd
