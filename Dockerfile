@@ -26,4 +26,9 @@ RUN usermod -s /usr/bin/git-shell r10k
 
 VOLUME ["/srv/puppetmaster.git", "/opt/puppetlabs/r10k/cache/"]
 
-ENTRYPOINT ["/usr/sbin/sshd", "-D"]
+COPY /docker-entrypoint.sh /
+COPY /docker-entrypoint.d/*.sh /docker-entrypoint.d/
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["/usr/sbin/sshd", "-D"]
