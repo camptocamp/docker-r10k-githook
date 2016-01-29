@@ -4,44 +4,6 @@ umask 0022
 
 PATH=/opt/puppetlabs/puppet/bin:$PATH
 
-to_irc(){
-  oldrev=$(git rev-parse $1)
-  oldrevshort=$(git log -1 --format="%h" $oldrev)
-  newrev=$(git rev-parse $2)
-  newrevshort=$(git log -1 --format="%h" $newrev)
-
-  commitcount=$(git log --format="%h" ${oldrev}..${newrev} | wc -l)
-  shortstats=$(git diff --shortstat ${oldrev}..${newrev})
-  authors=$(git log --format="%aN" ${oldrev}..${newrev} | sort | uniq | sed ':a;N;$!ba;s/\n/, /g')
-
-  maxcount=6
-
-  chan=${IRC_CHAN}
-  server=${IRC_SERVER}
-  nick=${IRC_NICK:-$HOSTNAME}
-  port="6667"
-  user=$(whoami)
-
-  (
-    echo "NICK ${nick}"
-    echo "USER ${nick} 0 * :Gecos"
-    echo "JOIN ${chan}"
-    if [ $commitcount -gt $maxcount ]; then
-      echo "PRIVMSG ${chan} :${user} pushed ${commitcount} commits from ${authors} to ${3} in branch ${4}"
-      echo "PRIVMSG ${chan} :${shortstats}"
-      echo "PRIVMSG ${chan} :for details: git log -p ${oldrevshort}..${newrevshort}"
-    else
-      echo "PRIVMSG ${chan} :${user} pushed ${commitcount} commits to ${3} in branch ${4} - ${oldrevshort}..${newrevshort}"
-      echo "PRIVMSG ${chan} :${shortstats}"
-      for commit in $(git log --format="%h" ${oldrev}..${newrev}); do
-        oneline=$(git log -1 --format="%h - %s (%an)" $commit)
-        echo "PRIVMSG ${chan} :${oneline}"
-      done
-    fi
-    echo "QUIT"
-  ) | nc $server $port
-}
-
 while read oldrev newrev refname; do
   # R10K
   if [[ $refname =~ 'refs/heads/' ]]; then
@@ -59,20 +21,11 @@ while read oldrev newrev refname; do
         r10k deploy environment $branch
       fi
     fi
+
+    if test -d post-receive.d; then
+      /bin/run-parts post-receive.d
+    fi
   else
     echo "r10k skipping $refname"
-  fi
-
-  # IRC
-  if test -n "${IRC_CHAN}" && test -n "${IRC_SERVER}"; then
-    project=$(pwd)
-
-    if expr "$oldrev" : '0*$' >/dev/null; then
-      exit 0
-    elif expr "$newrev" : '0*$' >/dev/null; then
-      exit 0
-    else
-      to_irc $oldrev $newrev $project $branch
-    fi
   fi
 done
