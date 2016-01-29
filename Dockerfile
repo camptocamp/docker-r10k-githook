@@ -15,8 +15,7 @@ RUN apt-get update \
 
 RUN mkdir /var/run/sshd
 
-RUN mkdir /srv/puppetmaster.git \
-  && su - r10k -s /bin/bash -c "cd /srv/puppetmaster.git && git --bare init"
+RUN mkdir /srv/puppetmaster.git
 COPY post-receive /srv/puppetmaster.git/hooks/post-receive
 
 VOLUME ["/srv/puppetmaster.git", "/opt/puppetlabs/r10k/cache/"]
