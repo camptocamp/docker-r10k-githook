@@ -4,8 +4,8 @@
 #
 #    GITHUB_USER='some_user' GITHUB_PASSWORD='p@sSw0rD' \
 #      GITHUB_TEAMS='team1,team2' GITHUB_USERS='foo,bar' \
-#      AUTHORIZED_KEYS='/root/.ssh/authorized_keys' \
-#      ./get_team_keys_new.rb
+#      AUTHORIZED_KEYS='/home/foo/.ssh/authorized_keys' \
+#      ./05-generate-authorized_keys.rb
 
 require 'github_api'
 
