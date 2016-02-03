@@ -8,6 +8,7 @@ RUN mkdir -p /opt/puppetlabs/r10k/cache \
   && useradd -r -d /opt/puppetlabs/r10k -s /usr/bin/git-shell r10k
 
 RUN gem install r10k --version $R10K_VERSION --no-ri --no-rdoc
+RUN gem install github_api
 
 RUN apt-get update \
   && apt-get install -y openssh-server \
