@@ -5,11 +5,11 @@ MAINTAINER mickael.canevet@camptocamp.com
 ENV R10K_VERSION='2.0.3'
 
 RUN mkdir -p /opt/puppetlabs/r10k/cache \
-  && useradd -r -d /opt/puppetlabs/r10k -s /bin/false r10k \
-  && chown r10k:r10k -R /opt/puppetlabs/r10k \
-  && chown r10k:r10k -R /etc/puppetlabs/code/environments
+  && useradd -r -d /opt/puppetlabs/r10k -s /usr/bin/git-shell r10k
 
 RUN gem install r10k --version $R10K_VERSION --no-ri --no-rdoc
+RUN gem install rack --no-ri --no-rdoc
+RUN gem install github_api --no-ri --no-rdoc
 
 RUN apt-get update \
   && apt-get install -y openssh-server \
@@ -17,13 +17,15 @@ RUN apt-get update \
 
 RUN mkdir /var/run/sshd
 
-RUN mkdir /srv/puppetmaster.git \
-  && chown -R r10k:r10k /srv/puppetmaster.git \
-  && su - r10k -s /bin/bash -c "cd /srv/puppetmaster.git && git --bare init"
-ADD post-receive /srv/puppetmaster.git/hooks/post-receive
+RUN mkdir /srv/puppetmaster.git
 
-RUN usermod -s /usr/bin/git-shell r10k
+COPY post-receive /
 
 VOLUME ["/srv/puppetmaster.git", "/opt/puppetlabs/r10k/cache/"]
 
-ENTRYPOINT ["/usr/sbin/sshd", "-D"]
+COPY /docker-entrypoint.sh /
+COPY /docker-entrypoint.d/* /docker-entrypoint.d/
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["/usr/sbin/sshd", "-D"]
