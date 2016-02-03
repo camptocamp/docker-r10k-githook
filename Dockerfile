@@ -1,4 +1,4 @@
-FROM camptocamp/puppetserver:2.1.1-9
+FROM camptocamp/puppetserver:2.2.1-5
 
 MAINTAINER mickael.canevet@camptocamp.com
 
