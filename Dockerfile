@@ -23,7 +23,7 @@ COPY post-receive /
 VOLUME ["/srv/puppetmaster.git", "/opt/puppetlabs/r10k/cache/"]
 
 COPY /docker-entrypoint.sh /
-COPY /docker-entrypoint.d/*.sh /docker-entrypoint.d/
+COPY /docker-entrypoint.d/* /docker-entrypoint.d/
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
