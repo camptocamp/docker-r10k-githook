@@ -12,7 +12,7 @@ require 'github_api'
 org = ENV['GITHUB_ORG'] || 'camptocamp'
 users = (ENV['GITHUB_USERS'] || '').split(',')
 teams = (ENV['GITHUB_TEAMS'] || '').split(',')
-outfile = ENV['AUTHORIZED_KEYS'] || '/root/.ssh/authorized_keys'
+outfile = ENV['AUTHORIZED_KEYS'] || '/opt/puppetlabs/r10k/.ssh/authorized_keys'
 
 gh_user = ENV['GITHUB_USER']
 gh_pass = ENV['GITHUB_PASSWORD']
