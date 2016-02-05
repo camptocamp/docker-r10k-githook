@@ -26,7 +26,7 @@ RUN mkdir /srv/puppetmaster.git
 COPY r10k.yaml /etc/puppetlabs/r10k/
 COPY post-receive /
 
-VOLUME ["/srv/puppetmaster.git", "/opt/puppetlabs/r10k/cache/", "/etc/ssh/ssh_host_keys"]
+VOLUME ["/srv/puppetmaster.git", "/opt/puppetlabs/r10k/cache/", "/etc/puppetlabs/code/environments", "/etc/ssh/ssh_host_keys"]
 
 COPY /docker-entrypoint.sh /
 COPY /docker-entrypoint.d/* /docker-entrypoint.d/
