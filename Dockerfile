@@ -23,6 +23,7 @@ RUN mkdir /var/run/sshd /etc/ssh/ssh_host_keys
 
 RUN mkdir /srv/puppetmaster.git
 
+COPY r10k.yaml /etc/puppetlabs/r10k/
 COPY post-receive /
 
 VOLUME ["/srv/puppetmaster.git", "/opt/puppetlabs/r10k/cache/", "/etc/ssh/ssh_host_keys"]
