@@ -2,7 +2,7 @@ FROM camptocamp/puppetserver:2.2.1-5
 
 MAINTAINER mickael.canevet@camptocamp.com
 
-ENV R10K_VERSION='2.0.3'
+ENV R10K_VERSION='2.1.1'
 
 RUN mkdir -p /opt/puppetlabs/r10k/cache \
   && mkdir -p /opt/puppetlabs/r10k/.ssh \
