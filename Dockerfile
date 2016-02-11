@@ -2,6 +2,8 @@ FROM camptocamp/puppetserver:2.2.1-5
 
 MAINTAINER mickael.canevet@camptocamp.com
 
+EXPOSE 22
+
 ENV R10K_VERSION='2.1.1'
 
 RUN mkdir -p /opt/puppetlabs/r10k/cache \
