@@ -6,5 +6,5 @@
   # This will clone the git repository and instantiate an environment per
   # branch in /etc/puppetlabs/code/environments
   :main:
-    remote: 'file:///srv/puppetmaster.git'
+    remote: 'r10k@r10kproxy:/srv/puppetmaster.git'
     basedir: '/etc/puppetlabs/code/environments'
