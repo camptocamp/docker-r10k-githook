@@ -1,12 +1,11 @@
-FROM camptocamp/puppetserver:2.2.1-5
+FROM camptocamp/puppetserver:2.7.2-5
 
-MAINTAINER mickael.canevet@camptocamp.com
-
-ENV R10K_VERSION='2.1.1'
+ENV R10K_VERSION='2.5.2'
 
 RUN mkdir -p /opt/puppetlabs/r10k/cache \
   && mkdir -p /opt/puppetlabs/r10k/.ssh \
-  && useradd -r -d /opt/puppetlabs/r10k -s /usr/bin/git-shell r10k
+  && useradd -r -d /opt/puppetlabs/r10k -s /usr/bin/git-shell r10k \
+  && chown -R r10k. /opt/puppetlabs/r10k
 
 RUN gem install r10k --version $R10K_VERSION --no-ri --no-rdoc
 RUN gem install rack --no-ri --no-rdoc
